@@ -1,0 +1,69 @@
+<div>
+    <h2>
+        <span jhiTranslate="jhipsterSampleApplicationApp.lesson.home.title">Lessons</span>
+        <button class="btn btn-primary float-right jh-create-entity create-lesson-my-suffix" [routerLink]="['/', { outlets: { popup: ['lesson-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="jhipsterSampleApplicationApp.lesson.home.createLabel">
+            Create new Lesson
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="lessons">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lessonTitle"><span jhiTranslate="jhipsterSampleApplicationApp.lesson.lessonTitle">Lesson Title</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lessonAvator"><span jhiTranslate="jhipsterSampleApplicationApp.lesson.lessonAvator">Lesson Avator</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lessonDescription"><span jhiTranslate="jhipsterSampleApplicationApp.lesson.lessonDescription">Lesson Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="language"><span jhiTranslate="jhipsterSampleApplicationApp.lesson.language">Language</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let lesson of lessons ;trackBy: trackId">
+                <td><a [routerLink]="['../lesson-my-suffix', lesson.id ]">{{lesson.id}}</a></td>
+                <td>{{lesson.lessonTitle}}</td>
+                <td>
+                    <a *ngIf="lesson.lessonAvator" (click)="openFile(lesson.lessonAvatorContentType, lesson.lessonAvator)">
+                        <img [src]="'data:' + lesson.lessonAvatorContentType + ';base64,' + lesson.lessonAvator" style="max-height: 30px;" alt="lesson image"/>
+                    </a>
+                    <span *ngIf="lesson.lessonAvator">{{lesson.lessonAvatorContentType}}, {{byteSize(lesson.lessonAvator)}}</span>
+                </td>
+                <td>{{lesson.lessonDescription}}</td>
+                <td jhiTranslate="{{'jhipsterSampleApplicationApp.Language.' + lesson.language}}">{{lesson.language}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../lesson-my-suffix', lesson.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'lesson-my-suffix/'+ lesson.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'lesson-my-suffix/'+ lesson.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

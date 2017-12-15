@@ -1,0 +1,125 @@
+<div>
+    <h2>
+        <span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.home.title">Soc Specifics</span>
+        <button class="btn btn-primary float-right jh-create-entity create-soc-specific-my-suffix" [routerLink]="['/', { outlets: { popup: ['soc-specific-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="jhipsterSampleApplicationApp.socSpecific.home.createLabel">
+            Create new Soc Specific
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="socSpecifics">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="socSpecificName"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.socSpecificName">Soc Specific Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="socSpecificCode"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.socSpecificCode">Soc Specific Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="socSpecificAvator"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.socSpecificAvator">Soc Specific Avator</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="socSpecificDescription"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.socSpecificDescription">Soc Specific Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="socSpecificURL"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.socSpecificURL">Soc Specific URL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="socSpecificPreviewImage"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.socSpecificPreviewImage">Soc Specific Preview Image</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="group"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.group">Group</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="totEmp"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.totEmp">Tot Emp</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="empPrse"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.empPrse">Emp Prse</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hourlyMean"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.hourlyMean">Hourly Mean</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="annualMean"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.annualMean">Annual Mean</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meanPrse"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.meanPrse">Mean Prse</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hrPctHighest"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.hrPctHighest">Hr Pct Highest</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hrPctHigh"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.hrPctHigh">Hr Pct High</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hourlyMedian"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.hourlyMedian">Hourly Median</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hrPctBelow"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.hrPctBelow">Hr Pct Below</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hrPctLowest"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.hrPctLowest">Hr Pct Lowest</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="anPctHighest"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.anPctHighest">An Pct Highest</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="anPctHigh"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.anPctHigh">An Pct High</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="annualMedian"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.annualMedian">Annual Median</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="anPctBelow"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.anPctBelow">An Pct Below</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="anPctLowest"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.anPctLowest">An Pct Lowest</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="socBroadId"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.socBroad">Soc Broad</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skillsId"><span jhiTranslate="jhipsterSampleApplicationApp.socSpecific.skills">Skills</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let socSpecific of socSpecifics ;trackBy: trackId">
+                <td><a [routerLink]="['../soc-specific-my-suffix', socSpecific.id ]">{{socSpecific.id}}</a></td>
+                <td>{{socSpecific.socSpecificName}}</td>
+                <td>{{socSpecific.socSpecificCode}}</td>
+                <td>
+                    <a *ngIf="socSpecific.socSpecificAvator" (click)="openFile(socSpecific.socSpecificAvatorContentType, socSpecific.socSpecificAvator)">
+                        <img [src]="'data:' + socSpecific.socSpecificAvatorContentType + ';base64,' + socSpecific.socSpecificAvator" style="max-height: 30px;" alt="socSpecific image"/>
+                    </a>
+                    <span *ngIf="socSpecific.socSpecificAvator">{{socSpecific.socSpecificAvatorContentType}}, {{byteSize(socSpecific.socSpecificAvator)}}</span>
+                </td>
+                <td>{{socSpecific.socSpecificDescription}}</td>
+                <td>{{socSpecific.socSpecificURL}}</td>
+                <td>{{socSpecific.socSpecificPreviewImage}}</td>
+                <td jhiTranslate="{{'jhipsterSampleApplicationApp.Group.' + socSpecific.group}}">{{socSpecific.group}}</td>
+                <td>{{socSpecific.totEmp}}</td>
+                <td>{{socSpecific.empPrse}}</td>
+                <td>{{socSpecific.hourlyMean}}</td>
+                <td>{{socSpecific.annualMean}}</td>
+                <td>{{socSpecific.meanPrse}}</td>
+                <td>{{socSpecific.hrPctHighest}}</td>
+                <td>{{socSpecific.hrPctHigh}}</td>
+                <td>{{socSpecific.hourlyMedian}}</td>
+                <td>{{socSpecific.hrPctBelow}}</td>
+                <td>{{socSpecific.hrPctLowest}}</td>
+                <td>{{socSpecific.anPctHighest}}</td>
+                <td>{{socSpecific.anPctHigh}}</td>
+                <td>{{socSpecific.annualMedian}}</td>
+                <td>{{socSpecific.anPctBelow}}</td>
+                <td>{{socSpecific.anPctLowest}}</td>
+                <td>
+                    <div *ngIf="socSpecific.socBroadId">
+                        <a [routerLink]="['../soc-broad-my-suffix', socSpecific.socBroadId  ]" >{{socSpecific.socBroadId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="socSpecific.skillsId">
+                        <a [routerLink]="['../skills-my-suffix', socSpecific.skillsId  ]" >{{socSpecific.skillsId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../soc-specific-my-suffix', socSpecific.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'soc-specific-my-suffix/'+ socSpecific.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'soc-specific-my-suffix/'+ socSpecific.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="socSpecifics && socSpecifics.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
