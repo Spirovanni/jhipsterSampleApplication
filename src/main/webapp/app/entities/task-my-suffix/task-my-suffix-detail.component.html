@@ -1,0 +1,82 @@
+
+<div *ngIf="task">
+    <h2><span jhiTranslate="jhipsterSampleApplicationApp.task.detail.title">Task</span> {{task.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.title">Title</span></dt>
+        <dd>
+            <span>{{task.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.taskID">Task ID</span></dt>
+        <dd>
+            <span>{{task.taskID}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.taskName">Task Name</span></dt>
+        <dd>
+            <span>{{task.taskName}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.scaleID">Scale ID</span></dt>
+        <dd>
+            <span>{{task.scaleID}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.scaleName">Scale Name</span></dt>
+        <dd>
+            <span>{{task.scaleName}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.dataValue">Data Value</span></dt>
+        <dd>
+            <span>{{task.dataValue}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.n">N</span></dt>
+        <dd>
+            <span>{{task.n}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.standardError">Standard Error</span></dt>
+        <dd>
+            <span>{{task.standardError}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.lowerClBound">Lower Cl Bound</span></dt>
+        <dd>
+            <span>{{task.lowerClBound}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.upperClBound">Upper Cl Bound</span></dt>
+        <dd>
+            <span>{{task.upperClBound}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.recommendSuppress">Recommend Suppress</span></dt>
+        <dd>
+            <span>{{task.recommendSuppress}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.notRelevant">Not Relevant</span></dt>
+        <dd>
+            <span>{{task.notRelevant}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.date">Date</span></dt>
+        <dd>
+            <span>{{task.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.domainSource">Domain Source</span></dt>
+        <dd>
+            <span>{{task.domainSource}}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.task.description">Description</span></dt>
+        <dd>
+            <span>{{task.description}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'task-my-suffix/'+ task.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

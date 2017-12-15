@@ -1,0 +1,79 @@
+<div>
+    <h2>
+        <span jhiTranslate="jhipsterSampleApplicationApp.socBroad.home.title">Soc Broads</span>
+        <button class="btn btn-primary float-right jh-create-entity create-soc-broad-my-suffix" [routerLink]="['/', { outlets: { popup: ['soc-broad-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="jhipsterSampleApplicationApp.socBroad.home.createLabel">
+            Create new Soc Broad
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="socBroads">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="jhipsterSampleApplicationApp.socBroad.socBroadName">Soc Broad Name</span></th>
+            <th><span jhiTranslate="jhipsterSampleApplicationApp.socBroad.socBroadCode">Soc Broad Code</span></th>
+            <th><span jhiTranslate="jhipsterSampleApplicationApp.socBroad.socBroadAvator">Soc Broad Avator</span></th>
+            <th><span jhiTranslate="jhipsterSampleApplicationApp.socBroad.socBroadDescription">Soc Broad Description</span></th>
+            <th><span jhiTranslate="jhipsterSampleApplicationApp.socBroad.socBroadURL">Soc Broad URL</span></th>
+            <th><span jhiTranslate="jhipsterSampleApplicationApp.socBroad.socBroadPreviewImage">Soc Broad Preview Image</span></th>
+            <th><span jhiTranslate="jhipsterSampleApplicationApp.socBroad.socMinor">Soc Minor</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let socBroad of socBroads ;trackBy: trackId">
+                <td><a [routerLink]="['../soc-broad-my-suffix', socBroad.id ]">{{socBroad.id}}</a></td>
+                <td>{{socBroad.socBroadName}}</td>
+                <td>{{socBroad.socBroadCode}}</td>
+                <td>
+                    <a *ngIf="socBroad.socBroadAvator" (click)="openFile(socBroad.socBroadAvatorContentType, socBroad.socBroadAvator)">
+                        <img [src]="'data:' + socBroad.socBroadAvatorContentType + ';base64,' + socBroad.socBroadAvator" style="max-height: 30px;" alt="socBroad image"/>
+                    </a>
+                    <span *ngIf="socBroad.socBroadAvator">{{socBroad.socBroadAvatorContentType}}, {{byteSize(socBroad.socBroadAvator)}}</span>
+                </td>
+                <td>{{socBroad.socBroadDescription}}</td>
+                <td>{{socBroad.socBroadURL}}</td>
+                <td>{{socBroad.socBroadPreviewImage}}</td>
+                <td>
+                    <div *ngIf="socBroad.socMinorId">
+                        <a [routerLink]="['../soc-minor-my-suffix', socBroad.socMinorId  ]" >{{socBroad.socMinorId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../soc-broad-my-suffix', socBroad.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'soc-broad-my-suffix/'+ socBroad.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'soc-broad-my-suffix/'+ socBroad.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
